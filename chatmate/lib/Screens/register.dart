@@ -21,6 +21,7 @@ class _RegisterState extends State<Register> {
   final TextEditingController confirmPasswordController =TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
+  final TextEditingController pinController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   @override
@@ -46,6 +47,7 @@ class _RegisterState extends State<Register> {
           'profilePic': '',
           'friends': [],
           'friendRequests': [],
+          'pin': pinController.text,
         });
         _auth.currentUser!.updateDisplayName(nameController.text);
         debugPrint('User added to firestore');
@@ -156,6 +158,21 @@ class _RegisterState extends State<Register> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 labelText: 'Confirm Password',
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              obscureText: true,
+              maxLength: 4,
+              keyboardType: TextInputType.number,
+              controller: pinController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                labelText: '4-digit PIN',
               ),
             ),
           ),
